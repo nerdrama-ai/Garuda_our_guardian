@@ -2,10 +2,22 @@
 In-memory store for the hackathon demo.
 Replaces Redis + PostgreSQL — zero external dependencies.
 """
+import os
 import uuid
 import time
 from collections import defaultdict, deque
 from typing import Dict, List, Any, Optional
+
+# Crash clip filenames bundled in crashclips/ — served at /clips/<filename>
+_CLIP_FILENAMES = [
+    f for f in sorted(os.listdir(
+        os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "crashclips"))
+    ))
+    if f.lower().endswith(".mp4")
+] if os.path.isdir(
+    os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "crashclips"))
+) else []
+_clip_index = 0
 
 # sessions: { session_id -> session_dict }
 sessions: Dict[str, Dict] = {}
@@ -54,6 +66,16 @@ def push_frame(session_id: str, frame_data: bytes, lat: float, lng: float) -> in
     return seq
 
 
+def _next_clip_url() -> str | None:
+    """Round-robin through available crash clips; returns a relative URL or None."""
+    global _clip_index
+    if not _CLIP_FILENAMES:
+        return None
+    filename = _CLIP_FILENAMES[_clip_index % len(_CLIP_FILENAMES)]
+    _clip_index += 1
+    return f"/clips/{filename}"
+
+
 def create_incident(
     session_id: str,
     incident_type: str,
@@ -69,7 +91,7 @@ def create_incident(
         "incident_type": incident_type,
         "confidence": confidence,
         "reason": reason,
-        "clip_url": None,
+        "clip_url": _next_clip_url(),
         "thumbnail_url": None,
         "lat": lat or session.get("lat", 12.9716),
         "lng": lng or session.get("lng", 77.5946),
