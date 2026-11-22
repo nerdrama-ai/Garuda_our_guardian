@@ -1,0 +1,250 @@
+.camera-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #000;
+}
+
+.camera-viewport {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-canvas-hidden {
+  display: none;
+}
+
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.7);
+}
+
+.camera-idle-icon {
+  font-size: 56px;
+  opacity: 0.6;
+}
+
+.camera-idle-text {
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+
+/* Viewfinder corners */
+.corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(255,255,255,0.6);
+  border-style: solid;
+}
+.corner.tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; border-radius: 2px 0 0 0; }
+.corner.tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; border-radius: 0 2px 0 0; }
+.corner.bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; border-radius: 0 0 0 2px; }
+.corner.br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; border-radius: 0 0 2px 0; }
+
+/* HUD */
+.camera-hud {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.hud-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.hud-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hud-session {
+  font-size: 10px;
+  opacity: 0.7;
+  font-family: monospace;
+}
+
+.hud-file-badge {
+  font-size: 10px;
+  color: #94a3b8;
+  background: rgba(0,0,0,0.65);
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Controls panel */
+.camera-controls {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error-banner {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid var(--red);
+  color: var(--red);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* Source mode toggle */
+.source-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.source-btn {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--surface2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+
+.source-btn.active {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* File pick button */
+.file-input-hidden {
+  display: none;
+}
+
+.pick-file-btn {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--surface2);
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.pick-file-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* Start/stop button */
+.stream-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.stream-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.15s;
+  letter-spacing: 0.3px;
+}
+
+.stream-btn.start {
+  background: var(--accent);
+  color: white;
+}
+
+.stream-btn.start:hover {
+  background: #2563eb;
+}
+
+.stream-btn.stop {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+/* Demo inject panel */
+.inject-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inject-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.inject-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.inject-btn {
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--btn-color) 15%, transparent);
+  color: var(--btn-color);
+  border: 1px solid color-mix(in srgb, var(--btn-color) 40%, transparent);
+  transition: all 0.15s;
+}
+
+.inject-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--btn-color) 25%, transparent);
+}
+
+.inject-btn:disabled {
+  opacity: 0.5;
+}
