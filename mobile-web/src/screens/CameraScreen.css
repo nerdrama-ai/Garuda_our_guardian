@@ -96,10 +96,16 @@
   50% { opacity: 0.3; }
 }
 
-.hud-session {
-  font-size: 10px;
-  opacity: 0.7;
-  font-family: monospace;
+.hud-ai {
+  font-size: 11px;
+  color: #a78bfa;
+  border-color: rgba(167, 139, 250, 0.3);
+  animation: ai-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ai-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .hud-file-badge {
@@ -209,42 +215,3 @@
   border: 1px solid var(--red);
 }
 
-/* Demo inject panel */
-.inject-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.inject-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-
-.inject-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.inject-btn {
-  padding: 10px 8px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  background: color-mix(in srgb, var(--btn-color) 15%, transparent);
-  color: var(--btn-color);
-  border: 1px solid color-mix(in srgb, var(--btn-color) 40%, transparent);
-  transition: all 0.15s;
-}
-
-.inject-btn:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--btn-color) 25%, transparent);
-}
-
-.inject-btn:disabled {
-  opacity: 0.5;
-}
